@@ -17,7 +17,7 @@ namespace WarLight.Shared.AI
             AILog.Log("PlayHuman", "Creating game...");
             var gameID = HumanGameAPI.CreateGame(new[] {
                             PlayerInvite.Create("me", (TeamIDType)0, null),
-                            PlayerInvite.Create("AI@warlight.net", (TeamIDType)0, null),
+                            //PlayerInvite.Create("AI@warlight.net", (TeamIDType)0, null),
                             PlayerInvite.Create(opponent, (TeamIDType)1, null)
                         }, gameName, null, settings =>
                         {

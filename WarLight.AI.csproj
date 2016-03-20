@@ -84,6 +84,7 @@
     <Compile Include="Cowzow\Move\BotOrder.cs" />
     <Compile Include="Cowzow\Move\BotOrderAttackTransfer.cs" />
     <Compile Include="Cowzow\Move\BotOrderDeploy.cs" />
+    <Compile Include="DaChu\BotMain.cs" />
     <Compile Include="Prod\BonusPath.cs" />
     <Compile Include="Prod\BotMain.cs" />
     <Compile Include="Prod\MakeOrders\MultiAttackPathToBonus.cs" />
