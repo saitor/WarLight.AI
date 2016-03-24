@@ -1,14 +1,6 @@
-﻿/*
-* This code was auto-converted from a java project.
-*/
-
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Linq;
-using WarLight.Shared.AI.Wunderwaffe.Bot;
-using WarLight.Shared.AI.Wunderwaffe.Heuristics;
-
-using System;
+using System.Text;
 
 namespace WarLight.Shared.AI.Wunderwaffe.Bot
 {
@@ -25,31 +17,7 @@ namespace WarLight.Shared.AI.Wunderwaffe.Bot
             this.Bonuses = new Dictionary<BonusIDType, BotBonus>();
             this.BotState = state;
         }
-
-
-        //private Dictionary<PlayerIDType, PlayerExpansionValueHeuristic> _opponentExpansionValue = new Dictionary<PlayerIDType, PlayerExpansionValueHeuristic>();
-
-        //public void SetOpponentExpansionValue(PlayerIDType opponentID)
-        //{
-        //    _opponentExpansionValue[opponentID] = new PlayerExpansionValueHeuristic(BotState, this, opponentID);
-        //}
-
-        //public PlayerExpansionValueHeuristic OpponentExpansionValue(PlayerIDType opponentID)
-        //{
-        //    if (_opponentExpansionValue.ContainsKey(opponentID) == false)
-        //        SetOpponentExpansionValue(opponentID);
-
-        //    return _opponentExpansionValue[opponentID];
-        //}
-
-        private PlayerExpansionValueHeuristic _myExpansionValue;
-        public PlayerExpansionValueHeuristic MyExpansionValue()
-        {
-            if (_myExpansionValue == null)
-                _myExpansionValue = new PlayerExpansionValueHeuristic(BotState, this, BotState.Me.ID);
-            return _myExpansionValue;
-        }
-
+        
         /// <returns>: a new Map object exactly the same as this one</returns>
         public BotMap GetMapCopy()
         {
@@ -58,7 +26,6 @@ namespace WarLight.Shared.AI.Wunderwaffe.Bot
             {
                 var newBonus = new BotBonus(newMap, bonus.ID);
                 newBonus.ExpansionValueCategory = bonus.ExpansionValueCategory;
-                // newBonus.setExpansionValue(sr.ExpansionValue);
                 newMap.Bonuses.Add(newBonus.ID, newBonus);
             }
             foreach (var territory in Territories.Values)
@@ -106,7 +73,9 @@ namespace WarLight.Shared.AI.Wunderwaffe.Bot
 
         public static BotMap FromStanding(BotMain state, GameStanding stand)
         {
-            var map = state.FullMap.GetMapCopy();
+            Assert.Fatal(stand != null, "stand is null");
+
+            var map = state.VisibleMap.GetMapCopy();
             foreach (var terr in stand.Territories.Values)
             {
                 var territory = map.Territories[terr.ID];
@@ -209,7 +178,7 @@ namespace WarLight.Shared.AI.Wunderwaffe.Bot
             List<BotTerritory> outvar = new List<BotTerritory>();
             var copy = new List<BotTerritory>();
             copy.AddRange(inTerritories);
-            while (copy.Count > 0)
+            while (copy.Count != 0)
             {
                 var lowestDistanceTerritory = copy[0];
                 foreach (var territory in copy)
@@ -268,7 +237,7 @@ namespace WarLight.Shared.AI.Wunderwaffe.Bot
             var outvar = new List<BotBonus>();
             var copy = new List<BotBonus>();
             copy.AddRange(bonuses);
-            while (copy.Count > 0)
+            while (copy.Count != 0)
             {
                 var highestRewardBonus = copy[0];
                 foreach (BotBonus bonus in copy)
@@ -282,12 +251,12 @@ namespace WarLight.Shared.AI.Wunderwaffe.Bot
             return outvar;
         }
 
-        public static List<BotTerritory> GetOrderedListOfTerritoriesByIdleArmies(List<BotTerritory> bonuses)
+        public static List<BotTerritory> GetOrderedListOfTerritoriesByIdleArmies(List<BotTerritory> terrs)
         {
             var outvar = new List<BotTerritory>();
             var copy = new List<BotTerritory>();
-            copy.AddRange(bonuses);
-            while (copy.Count > 0)
+            copy.AddRange(terrs);
+            while (copy.Count != 0)
             {
                 var highestIdleArmiesTerritory = copy[0];
                 foreach (var territory in copy)
