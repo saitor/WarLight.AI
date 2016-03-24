@@ -10,3 +10,9 @@ According to [Fizzer](https://www.warlight.net/blog/index.php/2016/02/the-warlig
 3. Be good at defeating human players.
 4. Be fun to play against in multi-player.
 5. Be good at defeating other bots.
+
+## Current issue
+Setup warlight.AI environment
+Testing Wunderwaffe
+1. Make sure AI not chose any wasteland at turn 1.
+2. Make sure AI at least get bonus at turn 2.
